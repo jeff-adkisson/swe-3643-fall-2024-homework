@@ -188,10 +188,10 @@ public void Interpretation_StandardDeviation_ReturnsInterpretationOfStandardDevi
 ```
 
 #### Test Execution
-![img_1.png](img_1.png)
+![img_1.png](README.assets/img_1-7032841.png)
 
 #### Coverage Analysis
-![img.png](img.png)
+![img.png](README.assets/img_10.png)
 
 
 
