@@ -5,7 +5,7 @@ Here is one solution for [Homework 2 of SWE 3643 (Fall 2024)](https://github.com
 1. Branch Analysis: Converted a pseudocode algorithm into a graph for comprehensive testing.
 2. Code Implementation: Translated the pseudocode into executable code.
 3. Unit Testing: Wrote unit tests to ensure 100% coverage, using various assertions.
-4. Coverage Analysis: Conducted coverage testing to ensure all branches are fully tested. 
+4. Coverage Analysis: Conducted coverage testing to ensure all branches are thoroughly tested. 
 5. Standard Deviation Interpretation: Added method and parameterized tests.
 
 Please refer to the README for detailed instructions and implementation.
@@ -78,7 +78,7 @@ flowchart TD
 
 ## 2. Code Implementation
 
-Converted psuedocode to C# code in two projects: Calculator and Console.
+Converted pseudocode to C# code in two projects: Calculator and Console.
 
 To execute the code from a Terminal:
 1. Clone the repository.
@@ -130,8 +130,8 @@ Passed!  - Failed:     0, Passed:    17, Skipped:     0, Total:    10, Duration:
 
 My initial unit tests did not achieve 100% coverage. The
 standard deviation calculation uses a variety of functions to produce a value.
-Each of these functions in the pseudocode check for empty arrays. If function A
-checks for an empty array, then function B does not need to check for an empty
+Each of these functions in the pseudocode checks for empty arrays. If function A
+checks for an empty array, function B does not need to check for an empty
 array. This is because function B is only called if function A completes. Therefore,
 the error check in B was not achieving coverage.
 
@@ -143,7 +143,7 @@ the error check in B was not achieving coverage.
 
 ![img_4.png](README.assets/img_4.png)
 
-Adding additional tests that directly called ComputeMean, etc. for their 
+Adding additional tests that directly called ComputeMean, etc., for their 
 error checks achieved 100% coverage of all code in the Statistics library.
 
 ![img_6.png](README.assets/img_6.png)
