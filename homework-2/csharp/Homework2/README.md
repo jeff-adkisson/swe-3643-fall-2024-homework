@@ -21,18 +21,18 @@ the [Homework 2 pseudocode](https://github.com/jeff-adkisson/swe-3643-fall-2024/
 title: Standard Deviation Functions
 ---
 flowchart TD
-    startSample((Start)) --> |$valuesArr|computeSampleStdDev
+    startSample(((START Sample Std Dev))) --> |Client PASSES $valuesArr|computeSampleStdDev
     computeSampleStdDev[ENTRY FUNC: Compute Sample Std Dev]
-    computeSampleStdDev --> |$valuesArr, $isPopulation=false|computeStdDev
+    computeSampleStdDev --> |PASS $valuesArr, $isPopulation=false|computeStdDev
     
-    startPop((Start)) --> |$valuesArr|computePopStdDev
+    startPop(((START Population Std Dev))) --> |Client PASSES $valuesArr|computePopStdDev
     computePopStdDev[ENTRY FUNC: Compute Pop Std Dev]
-    computePopStdDev --> |$valuesArr, $isPopulation=true|computeStdDev
+    computePopStdDev --> |PASS $valuesArr, $isPopulation=true|computeStdDev
 
     stdDevValid{Is Array Empty?}
     computeStdDev --> stdDevValid
     stdDevValid --> |Empty| stdDevError[[ERROR - $valuesArr cannot be empty]]
-    stdDevValid --> |$valuesArr| computeMean
+    stdDevValid --> |PASS $valuesArr| computeMean
 
     computeStdDev[FUNC Compute Standard Deviation]
 
@@ -44,9 +44,12 @@ flowchart TD
     meanLoop{LOOP All Values Processed?}
     meanLoop --> |No, Values Remain|meanAccumulator[Accumulate Sum of Values]
     meanAccumulator --> |Next Value|meanLoop
-    meanLoop --> computeMeanComplete[ASSIGN $mean = sum / array length]
+    meanLoop --> computeMeanAssign[ASSIGN $mean = sum / array length]
 
-    computeMeanComplete --> |$valuesArr, $mean|computeSquareDiff
+    computeMeanReturn((RETURN $mean))
+    computeMeanAssign --> |End of FUNC Compute Mean of Values| computeMeanReturn
+ 
+    computeMeanReturn --> |PASS $valuesArr, $mean|computeSquareDiff
     computeSquareDiff[FUNC Compute Square of Differences]
     computeSquareDiffValid{Is Array Empty?}
     computeSquareDiff-->computeSquareDiffValid
@@ -55,7 +58,9 @@ flowchart TD
     squareDiffLoop{LOOP All Values Processed?}
     squareDiffLoop --> |No, Values Remain|squareDiffAccumulator[ASSIGN $squareOfDiff += Square of Difference of Value from Mean]
     squareDiffAccumulator --> |Next Value|squareDiffLoop
-    squareDiffLoop --> |$squareOfDiff, $numValues=valuesArr.length, $isPopulation|computeVariance
+    squareDiffLoop --> |End of FUNC Compute Square of Differences| squareDiffLoopReturn
+    squareDiffLoopReturn((RETURN $squareOfDiff))
+    squareDiffLoopReturn --> |PASS $squareOfDiff, $numValues=valuesArr.length, $isPopulation| computeVariance
 
     computeVariance[FUNC Compute Variance] --> computeVarianceLength
     computeVarianceLength{ Is Sample / NOT Population? }
@@ -67,13 +72,16 @@ flowchart TD
     computeVarianceError[[ERROR - $numValues must be at least 1]]
     computeVarianceValid --> | $numValues < 1| computeVarianceError
     computeVarianceValid --> |$numValues >= 1|computeVarianceCalc
-    computeVarianceCalc[ASSIGN $variance=$squareOfDiff/$numValues]
+    computeVarianceCalc[ASSIGN $variance=$squareOfDiff/$numValues] --> |End of FUNC Compute Variance| computeVarianceReturn
+    computeVarianceReturn((RETURN $variance)) --> computeSqrRoot
 
     computeSqrRoot[ASSIGN $stdDev=Square Root of $variance]
-    computeVarianceCalc --> computeSqrRoot
 
-    complete(((RETURN $stdDev)))
-    computeSqrRoot --> complete
+    computeSqrRoot --> |End of FUNC Compute Standard Deviation| computeSqrRootReturn
+    computeSqrRootReturn((RETURN $stdDev)) --> |End of ENTRY FUNC| computeSqrRootReturnToEntry
+    computeSqrRootReturnToEntry((RETURN $stdDev))
+    computeSqrRootReturnToEntry --> |Client receives $stdDev|finish
+    finish(((END)))
 ```
 
 ## 2. Code Implementation
