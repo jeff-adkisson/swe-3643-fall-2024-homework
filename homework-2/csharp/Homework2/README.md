@@ -101,7 +101,26 @@ Sample StdDev = 1.5811388300841898
 Population StdDev = 2.9832867780352594
 ```
 
+### Project Relationships
+
+The solution has three projects:
+
+- Homework.Calculator
+  *Contains the calculator logic. This can be used by the Console app and the UnitTests project.*
+- Homework2.Console
+  *Calls the Calculator logic and outputs sample data to the console.*
+- Homework2.UnitTests
+  *Tests the `Homework2.Calculator` logic.*
+
 ![img.png](README.assets/img.png)
+
+#### Type Relationships
+
+- Statistics and Interpretation are in the Homework2.Calculator project.
+- Program is in the Homework2.Console project.
+- StatisticsTests and InterpretationTests are in the Homework2.UnitTests project.
+
+![image-20240923165619705](README.assets/image-20240923165619705.png)
 
 ## 3. Unit Testing
 
